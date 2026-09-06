@@ -232,6 +232,12 @@ Run the basic gardening fill-in-the-blank suite with:
 python qa-code/test_fill_blank.py data/qa20-gardening.csv
 ```
 
+Run the standard written English grammar classification suite with:
+
+```bash
+python qa-code/test_fill_blank.py data/qa21-grammar.csv
+```
+
 ## Model storage
 
 After download, the expected directory structure is:
