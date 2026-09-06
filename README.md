@@ -172,6 +172,12 @@ Run the basic climate change fill-in-the-blank suite with:
 python qa-code/test_fill_blank.py data/qa10-climate-change.csv
 ```
 
+Run the basic entertainment fill-in-the-blank suite with:
+
+```bash
+python qa-code/test_fill_blank.py data/qa11-entertainment.csv
+```
+
 ## Model storage
 
 After download, the expected directory structure is:
