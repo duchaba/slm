@@ -68,7 +68,7 @@ Model files are intentionally excluded from Git because they total about
 ### 5. Verify the installation
 
 ```bash
-python ask_models.py
+python qa-code/ask_models.py
 ```
 
 Expected answers should identify Paris as the capital of France. Exact wording
@@ -79,36 +79,36 @@ can vary because text generation may sample from multiple valid continuations.
 Pass a different question as the first argument:
 
 ```bash
-python ask_models.py "Write a short welcome email."
+python qa-code/ask_models.py "Write a short welcome email."
 ```
 
 Limit the maximum generated response length when needed:
 
 ```bash
-python ask_models.py --max-tokens 32 "What is the capital of France?"
+python qa-code/ask_models.py --max-tokens 32 "What is the capital of France?"
 ```
 
 Display all command-line options:
 
 ```bash
-python ask_models.py --help
+python qa-code/ask_models.py --help
 ```
 
 ## Run the true-or-false QA test
 
-The repository includes `qa1-true-false.csv`, which contains ten factual
+The repository includes `data/qa1-true-false.csv`, which contains ten factual
 statements and their expected `True` or `False` answers. Run the same suite
 against both models with:
 
 ```bash
-python test_models.py
+python qa-code/test_models.py
 ```
 
 The report shows each model's expected and actual answer, pass/fail status, and
 overall accuracy. To run another compatible test suite, provide its path:
 
 ```bash
-python test_models.py path/to/questions.csv
+python qa-code/test_models.py path/to/questions.csv
 ```
 
 Compatible CSV files must use this structure:
@@ -124,11 +124,11 @@ or `False`.
 
 ## Run the open-ended algebra-solving test
 
-`qa5-algebra-solving.csv` contains ten high-school algebra problems with
+`data/qa5-algebra-solving.csv` contains ten high-school algebra problems with
 numeric answers instead of true/false labels. Run it with:
 
 ```bash
-python test_algebra_solving.py
+python qa-code/test_algebra_solving.py
 ```
 
 The evaluator asks each model to show brief reasoning and finish with
@@ -137,11 +137,11 @@ values. A different compatible CSV can be supplied as the first argument.
 
 ## Run the fill-in-the-blank history test
 
-`qa6-world-history.csv` contains ten world-history questions with short text
+`data/qa6-world-history.csv` contains ten world-history questions with short text
 answers. Run it with:
 
 ```bash
-python test_fill_blank.py
+python qa-code/test_fill_blank.py
 ```
 
 The evaluator compares answers without regard to capitalization or punctuation.
@@ -151,7 +151,7 @@ answer first, for example `Augustus|Augustus Caesar`.
 Run the basic health and medicine fill-in-the-blank suite with:
 
 ```bash
-python test_fill_blank.py qa7-health.csv
+python qa-code/test_fill_blank.py data/qa7-health.csv
 ```
 
 ## Model storage
@@ -167,3 +167,18 @@ models/
 The models are loaded sequentially to keep peak memory low. On the original
 16 GB M2 test machine, Phi used approximately 2.2 GB peak memory and Llama used
 approximately 1.9 GB.
+
+## Repository layout
+
+```text
+slm/
+├── qa-code/       # Python model comparison and QA evaluators
+├── data/          # CSV question sets and expected answers
+├── qa-result/     # Markdown reports from completed QA runs
+├── models/        # Downloaded model weights (excluded from Git)
+├── README.md
+└── requirements.txt
+```
+
+Run all Python commands from the repository root so model and data paths resolve
+consistently.

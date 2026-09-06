@@ -3,8 +3,8 @@
 ## Test run
 
 - Date: September 6, 2026
-- Test data: `qa5-algebra-solving.csv`
-- Test command: `python test_algebra_solving.py qa5-algebra-solving.csv`
+- Test data: `data/qa5-algebra-solving.csv`
+- Test command: `python qa-code/test_algebra_solving.py data/qa5-algebra-solving.csv`
 - Questions: 10 open-ended numeric algebra problems
 - Maximum generated tokens per solution: 256
 - Generation temperature: 0.0 (deterministic)

@@ -3,8 +3,8 @@
 ## Test run
 
 - Date: September 6, 2026
-- Test data: `qa6-world-history.csv`
-- Test command: `python test_fill_blank.py qa6-world-history.csv`
+- Test data: `data/qa6-world-history.csv`
+- Test command: `python qa-code/test_fill_blank.py data/qa6-world-history.csv`
 - Questions: 10 fill-in-the-blank world-history questions
 - Maximum generated tokens per answer: 64
 - Generation temperature: 0.0 (deterministic)

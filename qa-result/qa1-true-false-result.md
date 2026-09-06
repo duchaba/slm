@@ -3,8 +3,8 @@
 ## Test run
 
 - Date: September 6, 2026
-- Test data: `qa1-true-false.csv`
-- Test command: `python test_models.py qa1-true-false.csv`
+- Test data: `data/qa1-true-false.csv`
+- Test command: `python qa-code/test_models.py data/qa1-true-false.csv`
 - Questions: 10
 - Generation temperature: 0.0 (deterministic)
 - Microsoft model: `mlx-community/Phi-4-mini-instruct-4bit`

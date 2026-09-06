@@ -3,8 +3,8 @@
 ## Test run
 
 - Date: September 6, 2026
-- Test data: `qa4-algebra.csv`
-- Test command: `python test_models.py qa4-algebra.csv`
+- Test data: `data/qa4-algebra.csv`
+- Test command: `python qa-code/test_models.py data/qa4-algebra.csv`
 - Questions: 10
 - Generation temperature: 0.0 (deterministic)
 - Microsoft model: `mlx-community/Phi-4-mini-instruct-4bit`
@@ -69,7 +69,7 @@ the slope 4 and therefore rejected the statement.
    was literally `False.`. The recorded label therefore matches the generated
    text.
 2. **The chat template is being applied.** The local tokenizer contains the
-   expected Llama instruction template, and `test_models.py` calls
+   expected Llama instruction template, and `qa-code/test_models.py` calls
    `apply_chat_template(..., add_generation_prompt=True)` before generation.
 3. **Llama can solve the sampled algebra problems.** When required to calculate
    before selecting a label, it correctly solved both a true equation and a

@@ -24,7 +24,7 @@ from mlx_lm.sample_utils import make_sampler
 from ask_models import MODELS
 
 
-DEFAULT_TEST_FILE = Path("qa5-algebra-solving.csv")
+DEFAULT_TEST_FILE = Path("data/qa5-algebra-solving.csv")
 
 
 @dataclass(frozen=True)

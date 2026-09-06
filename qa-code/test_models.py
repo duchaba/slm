@@ -23,7 +23,7 @@ from ask_models import MODELS
 
 
 # Keep the default test location explicit so callers can supply other suites.
-DEFAULT_TEST_FILE = Path("qa1-true-false.csv")
+DEFAULT_TEST_FILE = Path("data/qa1-true-false.csv")
 
 
 @dataclass(frozen=True)

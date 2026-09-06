@@ -8,7 +8,7 @@ practical on machines with limited unified memory.
 Run the script from the project root after completing the model-download steps
 in ``README.md``::
 
-    python ask_models.py "What is the capital of France?"
+    python qa-code/ask_models.py "What is the capital of France?"
 """
 
 from __future__ import annotations

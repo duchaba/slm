@@ -3,8 +3,8 @@
 ## Test run
 
 - Date: September 6, 2026
-- Test data: `qa7-health.csv`
-- Test command: `python test_fill_blank.py qa7-health.csv`
+- Test data: `data/qa7-health.csv`
+- Test command: `python qa-code/test_fill_blank.py data/qa7-health.csv`
 - Questions: 10 fill-in-the-blank health and medicine questions
 - Maximum generated tokens per answer: 64
 - Generation temperature: 0.0 (deterministic)
