@@ -160,6 +160,12 @@ Run the basic finance fill-in-the-blank suite with:
 python qa-code/test_fill_blank.py data/qa8-finance.csv
 ```
 
+Run the basic sports fill-in-the-blank suite with:
+
+```bash
+python qa-code/test_fill_blank.py data/qa9-sport.csv
+```
+
 ## Model storage
 
 After download, the expected directory structure is:
