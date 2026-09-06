@@ -220,6 +220,12 @@ Run the advanced programming techniques fill-in-the-blank suite with:
 python qa-code/test_fill_blank.py data/qa18-advanced-programming.csv
 ```
 
+Run the basic biology fill-in-the-blank suite with:
+
+```bash
+python qa-code/test_fill_blank.py data/qa19-biology.csv
+```
+
 ## Model storage
 
 After download, the expected directory structure is:
