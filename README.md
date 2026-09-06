@@ -208,6 +208,12 @@ Run the basic computer science fill-in-the-blank suite with:
 python qa-code/test_fill_blank.py data/qa16-computer-science.csv
 ```
 
+Run the basic software engineering fill-in-the-blank suite with:
+
+```bash
+python qa-code/test_fill_blank.py data/qa17-software-engineering.csv
+```
+
 ## Model storage
 
 After download, the expected directory structure is:

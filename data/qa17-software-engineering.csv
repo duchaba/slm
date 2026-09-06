@@ -1,0 +1,11 @@
+question,answer
+A system that records and manages changes to source code is called ___ control.,version|source|version control|source control
+Git is an example of a distributed version control ___.,system|version control system|VCS
+A test that checks one small component of a program in isolation is a ___ test.,unit|unit test
+The process of finding and fixing defects in software is called ___.,debugging
+A needed capability that a software system must provide is called a ___.,requirement|software requirement
+The examination of source code by another developer is called code ___.,review|code review
+The practice of frequently merging and automatically testing code changes is continuous ___.,integration|continuous integration|CI
+The acronym API stands for application programming ___.,interface|application programming interface
+Improving the internal structure of code without changing its observable behavior is called ___.,refactoring|code refactoring
+The acronym SDLC stands for software development life ___.,cycle|software development life cycle
