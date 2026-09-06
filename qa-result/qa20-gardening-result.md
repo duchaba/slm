@@ -54,6 +54,54 @@ one supplied an incorrect word. Meta Llama 3.2 3B answered eight correctly,
 missing the annual and hardening-off questions. Both models correctly answered
 compost, mulch, transplanting, and fertilizer-label terminology.
 
+## Investigation: Why Phi scored 50%
+
+Phi was rerun diagnostically with the same temperature, token limit, prompt,
+and answer key. Its complete text for each failed item was then inspected:
+
+| Question | Raw diagnostic response | Primary cause |
+| ---: | --- | --- |
+| 3 | `Pruning. Pruning. Pruning...` until the response was cut off | Knowledge and generation failure: Phi confused weeding with pruning, entered a repetitive loop, and never emitted an `ANSWER:` marker. |
+| 4 | `Pruning. Pruning is cutting selected branches...` followed by a long explanation | Format and length failure: Phi knew the correct answer, but generated explanation until reaching the 64-token limit without writing the required final marker. |
+| 6 | `Answer: mature perennial.` | Over-specific response: the core category `perennial` is present, but `mature` adds a condition not established by the question and therefore does not exactly match the accepted answer. |
+| 7 | `Answer: INDOOR.` | Knowledge error: the established gardening term is `hardening off`; `hardening indoor` is incorrect. |
+| 8 | `Pruning. <answer>` | Knowledge and format failure: pruning is not the specific practice of removing spent flowers, and the model copied the placeholder instead of producing an `ANSWER:` line. |
+
+The low aggregate score therefore comes from three interacting factors:
+
+1. **Terminology confusion:** Phi collapsed several distinct garden-maintenance
+   operations into `pruning`. That caused the substantive errors on weeding and
+   deadheading, while `INDOOR` showed that it did not retrieve `hardening off`.
+2. **Instruction-following instability:** On three items Phi omitted the exact
+   final-answer marker. It sometimes copied the literal `<answer>` placeholder
+   or produced an explanation instead of the requested final line.
+3. **Strict exact-answer grading:** `Mature perennial` contains the target term,
+   but the evaluator intentionally does not accept an unsupported modifier. This
+   is a rubric-sensitive failure rather than a complete absence of the concept.
+
+Question 4 proves that `Unrecognized` does not always mean the model lacked the
+answer: its prose explicitly defined pruning correctly. If question 4 received
+knowledge credit and question 6 received credit for containing the core category,
+Phi would score 7/10 instead of 5/10. Under the project's documented strict
+format and exact-answer rules, however, the recorded 5/10 score is correct.
+
+The diagnostic run also shows that the 64-token limit contributed only to
+question 4. Increasing the limit might eventually allow a final marker there,
+but it would not fix the wrong concepts in questions 3, 7, and 8. Question 3's
+repeated `Pruning` is deterministic greedy-decoding degeneration at temperature
+0.0; a different sampling strategy might stop the repetition, but there is no
+evidence it would recover the correct term `weeding`.
+
+The supported conclusion is limited to these ten questions. The test indicates
+that Phi has weaker separation of closely related gardening terms and less
+reliable short-answer format compliance than Llama on QA20; it does not by
+itself measure Phi's overall gardening knowledge.
+
+Recommended follow-up tests are to replace the literal `<answer>` placeholder
+with a concrete example such as `ANSWER: compost`, cap the response to a single
+line, report knowledge accuracy separately from protocol compliance, and repeat
+the same questions with both greedy and low-temperature sampling.
+
 ## Answer-key references
 
 - [US EPA: Composting at Home](https://www.epa.gov/recycle/composting-home)
