@@ -1,0 +1,11 @@
+question,answer
+Caching a function's results so repeated calls can reuse them is called ___.,memoization
+An optimization that transforms certain recursive calls into iteration is tail-call ___.,optimization|tail-call optimization|tail call optimization|TCO
+A function that accepts another function as an argument or returns one is a ___-order function.,higher|higher-order function|higher order function
+A function bundled with references to its surrounding lexical environment is a ___.,closure
+A function that suspends execution and produces values lazily is commonly called a ___.,generator
+The technique of creating new immutable data structures by reusing unchanged parts is structural ___.,sharing|structural sharing
+The concurrency scheduling technique in which an idle worker takes tasks from another worker is work ___.,stealing|work stealing
+The atomic primitive commonly abbreviated CAS means compare-and-___.,swap|compare-and-swap|compare and swap
+The C++ technique that ties resource lifetime to object lifetime is abbreviated ___.,RAII|resource acquisition is initialization
+Replacing recursive calls with returned zero-argument functions that a loop invokes is called ___.,trampolining|a trampoline|trampoline
