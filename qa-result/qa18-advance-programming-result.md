@@ -57,6 +57,49 @@ correctly, missing tail-call optimization, structural sharing, and
 trampolining. Both models correctly answered memoization, work stealing,
 compare-and-swap, and RAII.
 
+## Investigation: Why Phi scored 50%
+
+Phi was rerun diagnostically with the same deterministic settings, and the
+complete generated text was inspected for all five failures. The low score has
+two distinct causes:
+
+| Question | Raw diagnostic response | Primary cause |
+| ---: | --- | --- |
+| 3 | `A function ... is a first-order function. Answer: first-order` | Concept error: a function that accepts or returns functions is higher-order, not first-order. |
+| 4 | `A function ... is a closure. <answer>` | Format error only: the explanation contains the correct term, but the model copied the placeholder and omitted the required `ANSWER:` marker. |
+| 5 | `A function ... is commonly called a __ Coroutine. <answer>` | Concept and format errors: coroutine is related but does not specifically name a lazy value-producing generator, and no answer marker was emitted. |
+| 6 | `The technique ... is structural __copy__. Answer: copy` | Concept error: copying does not describe reuse of unchanged structure; the term is structural sharing. |
+| 10 | `Replacing recursive calls ... is called ___. Answer: Tail Call Optimization.` | Concept error: tail-call optimization and trampolining are different recursion-elimination mechanisms. |
+
+The evidence indicates that advanced terminology is the main cause: four of
+the five failed responses contain an incorrect or insufficiently specific
+technical term. One failure, question 4, is solely due to strict output-format
+compliance. If question 4 were graded for knowledge expressed anywhere in the
+response, Phi would score 6/10 rather than 5/10. Question 5 would still fail
+because its stated term was `Coroutine`, not `generator`.
+
+The 64-token generation limit did not cause the failures. Every diagnostic
+response ended well before the limit, and the failures were reproduced at
+temperature 0.0. The pattern is also consistent with the model's documented
+constraints: Microsoft's model card describes Phi-4 Mini as a 3.8-billion-
+parameter model that remains capacity-limited and says most of its code training
+uses Python and common Python packages. This test instead emphasizes specialized,
+language-neutral terminology from functional programming, persistent data
+structures, concurrency, and C++.
+
+The local checkpoint is 4-bit quantized, while Microsoft's original model card
+describes the source weights as BF16. Quantization could affect accuracy, but
+this test did not compare 4-bit and BF16 checkpoints, so it cannot establish
+quantization as a cause. Likewise, ten questions are too few to support a broad
+claim about Phi's overall programming ability. The supported conclusion is
+limited to this QA18 question set: terminology confusion caused most lost
+points, and exact-format noncompliance caused one additional lost point.
+
+For a follow-up experiment, the clearest next tests would be to use a concrete
+output example instead of the literal `<answer>` placeholder, score knowledge
+separately from format compliance, and compare the 4-bit checkpoint with the
+original-precision model on the same questions.
+
 ## Answer-key references
 
 - [Python documentation: `functools.cache`](https://docs.python.org/3/library/functools.html#functools.cache)
@@ -75,3 +118,6 @@ compare-and-swap, and RAII.
   explains how RAII ties resource ownership to object lifetime.
 - [Scala standard library: TailCalls](https://www.scala-lang.org/api/current/scala/util/control/TailCalls$.html)
   documents trampoline-based tail-call execution.
+- [Microsoft Phi-4 Mini model card](https://huggingface.co/microsoft/Phi-4-mini-instruct)
+  documents the model's 3.8-billion-parameter size, capacity limitations,
+  training focus, and intended use considerations.
