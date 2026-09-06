@@ -178,7 +178,7 @@ def test_model(
     try:
         for test_case in test_cases:
             instruction = (
-                "Fill in the blank in this world history question. On the "
+                "Fill in the blank in this question. On the "
                 "final line, write only ANSWER: <answer>.\n\n"
                 f"Question: {test_case.question}"
             )

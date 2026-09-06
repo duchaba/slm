@@ -178,6 +178,12 @@ Run the basic entertainment fill-in-the-blank suite with:
 python qa-code/test_fill_blank.py data/qa11-entertainment.csv
 ```
 
+Run the basic literature fill-in-the-blank suite with:
+
+```bash
+python qa-code/test_fill_blank.py data/qa12-literature.csv
+```
+
 ## Model storage
 
 After download, the expected directory structure is:
