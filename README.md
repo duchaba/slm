@@ -135,6 +135,19 @@ The evaluator asks each model to show brief reasoning and finish with
 `ANSWER: <number>`. It grades integers, decimals, and fractions as exact numeric
 values. A different compatible CSV can be supplied as the first argument.
 
+## Run the fill-in-the-blank history test
+
+`qa6-world-history.csv` contains ten world-history questions with short text
+answers. Run it with:
+
+```bash
+python test_fill_blank.py
+```
+
+The evaluator compares answers without regard to capitalization or punctuation.
+Separate multiple valid answers in a custom CSV with `|`, placing the canonical
+answer first, for example `Augustus|Augustus Caesar`.
+
 ## Model storage
 
 After download, the expected directory structure is:
