@@ -196,6 +196,12 @@ Run the basic plant fill-in-the-blank suite with:
 python qa-code/test_fill_blank.py data/qa14-plant.csv
 ```
 
+Run the basic chemistry fill-in-the-blank suite with:
+
+```bash
+python qa-code/test_fill_blank.py data/qa15-chemistry.csv
+```
+
 ## Model storage
 
 After download, the expected directory structure is:
