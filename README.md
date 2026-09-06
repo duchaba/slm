@@ -166,6 +166,12 @@ Run the basic sports fill-in-the-blank suite with:
 python qa-code/test_fill_blank.py data/qa9-sport.csv
 ```
 
+Run the basic climate change fill-in-the-blank suite with:
+
+```bash
+python qa-code/test_fill_blank.py data/qa10-climate-change.csv
+```
+
 ## Model storage
 
 After download, the expected directory structure is:
