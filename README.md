@@ -94,6 +94,34 @@ Display all command-line options:
 python ask_models.py --help
 ```
 
+## Run the true-or-false QA test
+
+The repository includes `qa1-true-false.csv`, which contains ten factual
+statements and their expected `True` or `False` answers. Run the same suite
+against both models with:
+
+```bash
+python test_models.py
+```
+
+The report shows each model's expected and actual answer, pass/fail status, and
+overall accuracy. To run another compatible test suite, provide its path:
+
+```bash
+python test_models.py path/to/questions.csv
+```
+
+Compatible CSV files must use this structure:
+
+```csv
+question,answer
+Paris is the capital of France.,True
+Mars is the closest planet to the Sun.,False
+```
+
+Answers are case-insensitive when the CSV is loaded, but must be either `True`
+or `False`.
+
 ## Model storage
 
 After download, the expected directory structure is:
