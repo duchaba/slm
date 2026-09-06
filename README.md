@@ -154,6 +154,12 @@ Run the basic health and medicine fill-in-the-blank suite with:
 python qa-code/test_fill_blank.py data/qa7-health.csv
 ```
 
+Run the basic finance fill-in-the-blank suite with:
+
+```bash
+python qa-code/test_fill_blank.py data/qa8-finance.csv
+```
+
 ## Model storage
 
 After download, the expected directory structure is:
