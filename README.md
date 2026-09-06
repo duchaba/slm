@@ -122,6 +122,19 @@ Mars is the closest planet to the Sun.,False
 Answers are case-insensitive when the CSV is loaded, but must be either `True`
 or `False`.
 
+## Run the open-ended algebra-solving test
+
+`qa5-algebra-solving.csv` contains ten high-school algebra problems with
+numeric answers instead of true/false labels. Run it with:
+
+```bash
+python test_algebra_solving.py
+```
+
+The evaluator asks each model to show brief reasoning and finish with
+`ANSWER: <number>`. It grades integers, decimals, and fractions as exact numeric
+values. A different compatible CSV can be supplied as the first argument.
+
 ## Model storage
 
 After download, the expected directory structure is:
