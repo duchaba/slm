@@ -148,6 +148,12 @@ The evaluator compares answers without regard to capitalization or punctuation.
 Separate multiple valid answers in a custom CSV with `|`, placing the canonical
 answer first, for example `Augustus|Augustus Caesar`.
 
+Run the basic health and medicine fill-in-the-blank suite with:
+
+```bash
+python test_fill_blank.py qa7-health.csv
+```
+
 ## Model storage
 
 After download, the expected directory structure is:
