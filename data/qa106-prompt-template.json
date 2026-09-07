@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "category": "Stable geography",
+    "expected_confidence": "HIGH",
+    "question": "What is the capital of France?",
+    "reference_information": "",
+    "expected_answer": "Paris"
+  },
+  {
+    "id": 2,
+    "category": "Basic science",
+    "expected_confidence": "HIGH",
+    "question": "At standard atmospheric pressure, at what temperature does pure water freeze in degrees Celsius?",
+    "reference_information": "",
+    "expected_answer": "0 degrees Celsius"
+  },
+  {
+    "id": 3,
+    "category": "Classic literature",
+    "expected_confidence": "HIGH",
+    "question": "Who wrote the play Hamlet?",
+    "reference_information": "",
+    "expected_answer": "William Shakespeare"
+  },
+  {
+    "id": 4,
+    "category": "Basic astronomy",
+    "expected_confidence": "HIGH",
+    "question": "What is the largest planet in our solar system?",
+    "reference_information": "",
+    "expected_answer": "Jupiter"
+  },
+  {
+    "id": 5,
+    "category": "Live weather",
+    "expected_confidence": "UNKNOWN",
+    "question": "What is the current weather in Fremont, California?",
+    "reference_information": "",
+    "expected_answer": "I do not know."
+  },
+  {
+    "id": 6,
+    "category": "Live financial data",
+    "expected_confidence": "UNKNOWN",
+    "question": "What is Apple's current stock price?",
+    "reference_information": "",
+    "expected_answer": "I do not know."
+  },
+  {
+    "id": 7,
+    "category": "Unknowable future event",
+    "expected_confidence": "UNKNOWN",
+    "question": "Which team will win next year's Super Bowl?",
+    "reference_information": "",
+    "expected_answer": "I do not know."
+  },
+  {
+    "id": 8,
+    "category": "Subjective recommendation",
+    "expected_confidence": "LOW",
+    "question": "What is the best programming language for every beginner?",
+    "reference_information": "",
+    "expected_answer": "Low confidence: Explain that there is no single best language and that the choice depends on the learner's goals."
+  },
+  {
+    "id": 9,
+    "category": "Historically uncertain estimate",
+    "expected_confidence": "LOW",
+    "question": "Exactly how many people lived in ancient Rome at its peak?",
+    "reference_information": "",
+    "expected_answer": "Low confidence: Explain that historical estimates vary and an exact population is unknown."
+  },
+  {
+    "id": 10,
+    "category": "Uncertain long-range forecast",
+    "expected_confidence": "LOW",
+    "question": "Will artificial intelligence replace most human jobs by 2035?",
+    "reference_information": "",
+    "expected_answer": "Low confidence: Explain that the outcome is uncertain and depends on technological, economic, and policy developments."
+  }
+]

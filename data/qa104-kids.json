@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "topic": "Great Expectations",
+    "task": "Write a short, spoiler-light summary of Charles Dickens's novel Great Expectations for a 10- to 12-year-old. Explain who Pip is, how his life changes, and what he learns. Do not invent characters or major events."
+  },
+  {
+    "id": 2,
+    "topic": "Star Trek",
+    "task": "Write a short explanation of the general idea of the Star Trek television franchise for a 10- to 12-year-old. Explain space exploration, the crew, the Federation, and its themes without assuming one specific series. Do not invent episodes or claim that every Star Trek series has the same captain or ship."
+  },
+  {
+    "id": 3,
+    "topic": "Chess",
+    "task": "Write a short explanation of chess for a 10- to 12-year-old. Explain the goal, the board, the two players, and the basic roles of the pieces. Keep the rules accurate and do not overwhelm the reader with advanced strategy."
+  },
+  {
+    "id": 4,
+    "topic": "Baseball",
+    "task": "Write a short explanation of baseball for a 10- to 12-year-old. Explain teams, innings, batting, fielding, outs, runs, and the basic goal. Keep the rules accurate without getting lost in rare exceptions."
+  }
+]

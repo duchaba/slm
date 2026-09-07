@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "scenario": "Accept an off-site meeting invitation",
+    "recipient": "Jordan",
+    "subject": "Off-site planning meeting",
+    "instructions": "Write a complete email accepting Jordan's invitation to an off-site planning meeting. Confirm that you are glad to attend, ask Jordan to send the final time and location, and offer to prepare anything needed. Do not invent a date, time, location, or agenda item."
+  },
+  {
+    "id": 2,
+    "scenario": "Decline a lunch celebration",
+    "recipient": "Morgan",
+    "subject": "Team lunch celebration",
+    "instructions": "Write a complete email declining Morgan's invitation to a team lunch celebration because of a prior commitment. Express appreciation, congratulate the team, and suggest celebrating with them another time. Do not invent personal details or criticize the event."
+  },
+  {
+    "id": 3,
+    "scenario": "Celebrate a colleague's promotion",
+    "recipient": "Taylor",
+    "subject": "Congratulations on your promotion",
+    "instructions": "Write a complete email congratulating colleague Taylor on a promotion. Recognize Taylor's hard work and positive effect on the team, express confidence in Taylor's new role, and offer support. Do not invent a job title, project, achievement, or company detail."
+  },
+  {
+    "id": 4,
+    "scenario": "Employment termination for a friend and colleague",
+    "recipient": "Alex",
+    "subject": "Follow-up regarding your employment",
+    "instructions": "Write a complete email to Alex, who is both a friend and a colleague, confirming an employment-termination decision after a formal conversation has already occurred. State that employment is ending without inventing a reason, misconduct, severance, benefits, dates, or legal terms. Acknowledge that the personal relationship makes the message difficult, preserve Alex's dignity, direct Alex to the authorized HR contact for official next steps, and maintain clear professional boundaries. Do not imply that email alone is the complete termination process."
+  }
+]
