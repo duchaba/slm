@@ -94,18 +94,63 @@ Display all command-line options:
 python qa-code/ask_models.py --help
 ```
 
-## Ask one model with a prompt template
+## Run the command-line SLM app
 
-Use `ask_slm.py` to select one model and apply the reusable confidence prompt.
-Pass the question first and either `phi` or `llama` second:
+Run `ask_slm.py` from the repository root. Activate the project's virtual
+environment first so the command uses the installed MLX dependencies:
+
+```bash
+cd /Users/duchaba/Documents/slm
+source .venv/bin/activate
+```
+
+The command syntax is:
+
+```text
+python qa-code/ask_slm.py "QUESTION" MODEL [PROMPT_TEMPLATE] [OPTIONS]
+```
+
+The arguments are:
+
+- `QUESTION`: The complete question or writing request, enclosed in quotes.
+- `MODEL`: Use `phi` for Microsoft Phi-4 Mini or `llama` for Meta Llama 3.2
+  3B. The alias `llamda` is also accepted.
+- `PROMPT_TEMPLATE`: Optional path to another prompt-template file. When this
+  argument is omitted, the app uses `prompt-template/confidence-answer.txt`.
+
+For example, ask Phi a stable factual question:
 
 ```bash
 python qa-code/ask_slm.py "What is the capital of France?" phi
-python qa-code/ask_slm.py "What is the current weather in Fremont, CA?" llama
 ```
 
-The optional third positional argument selects another template file. When it
-is omitted, the app uses `prompt-template/confidence-answer.txt`:
+An expected response is:
+
+```text
+CONFIDENCE: HIGH
+ANSWER: Paris.
+
+Output: 12 tokens | attempted limits: 300
+
+Elapsed time: 4.307 seconds
+```
+
+Exact wording, token count, and elapsed time can vary. Ask Llama a writing
+question by changing the final model argument:
+
+```bash
+python qa-code/ask_slm.py "Write me a short love poem." llama
+```
+
+The default confidence template tells the local model to identify uncertain or
+unavailable answers. Because the app has no internet connection or live-data
+tool, a question about current weather should return `UNKNOWN` with a reason:
+
+```bash
+python qa-code/ask_slm.py "What is the current weather in Fremont, CA?" phi
+```
+
+Use a custom prompt by supplying its path as the third positional argument:
 
 ```bash
 python qa-code/ask_slm.py "Your question" llama path/to/custom-template.txt
@@ -113,8 +158,7 @@ python qa-code/ask_slm.py "Your question" llama path/to/custom-template.txt
 
 Templates must contain one `{question}` placeholder and one `{context}`
 placeholder. This command has no live-data source, so `{context}` is currently
-filled with `None`. The alias `llamda` is accepted for convenience, although
-the model's correct name is Llama.
+filled with `None`.
 
 The app automatically starts with a 300-token output allowance. If the response
 reaches that limit, it retries from the original prompt with 450 and then 600
@@ -129,6 +173,13 @@ To disable automatic retries and use one fixed allowance:
 
 ```bash
 python qa-code/ask_slm.py "Explain photosynthesis." phi --max-tokens 256
+```
+
+Display the complete usage guide, including model names, prompt templates, and
+token options:
+
+```bash
+python qa-code/ask_slm.py --help
 ```
 
 ## Run the true-or-false QA test
@@ -275,6 +326,24 @@ Run the standard written English grammar classification suite with:
 python qa-code/test_fill_blank.py data/qa21-grammar.csv
 ```
 
+## Architecture and findings reports
+
+The `architecture` folder contains the project's higher-level design notes and
+cross-test analysis:
+
+- [First Architecture and QA Observation Note](architecture/first-observation-note.md)
+  describes the initial local architecture, the roles of Phi, Llama, Duc, and
+  the Codex/ChatGPT assistant, the QA workflow, model capacities, grading
+  approach, and the system's current limitations.
+- [Token, Context Window, and Memory Design Note](architecture/token-context-window-memory.md)
+  explains token measurement, response time, input and output context, session
+  memory, proposed long-term memory, retrieval, and recommendations for a
+  continuously operating Duc assistant.
+- [Consolidated QA Findings and Architecture Recommendations](architecture/qa-results-synthesis.md)
+  reviews all reports in `qa-result`, compares both models across factual and
+  writing tests, analyzes truncation, latency, guardrails, and confidence
+  behavior, and proposes a validated production architecture.
+
 ## Model storage
 
 After download, the expected directory structure is:
@@ -293,8 +362,10 @@ approximately 1.9 GB.
 
 ```text
 slm/
+├── architecture/  # Architecture notes and consolidated findings
 ├── qa-code/       # Python model comparison and QA evaluators
 ├── data/          # CSV question sets and expected answers
+├── prompt-template/ # Reusable model prompt templates
 ├── qa-result/     # Markdown reports from completed QA runs
 ├── models/        # Downloaded model weights (excluded from Git)
 ├── README.md
