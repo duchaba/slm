@@ -371,6 +371,10 @@ slm/
 ├── README.md
 └── requirements.txt
 ```
+---
+# Legal
+
+- GNU Affero General Public License v3.0
 
 Run all Python commands from the repository root so model and data paths resolve
 consistently.
