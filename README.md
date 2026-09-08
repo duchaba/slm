@@ -1,8 +1,9 @@
-# Local SLM project
+# Welcome to Duc Haba's Local SLM project
+---
 
 This project runs Microsoft Phi-4 Mini Instruct and Meta Llama 3.2 3B
 Instruct locally on Apple Silicon with MLX. The downloaded checkpoints are
-4-bit MLX conversions of the models hosted on Hugging Face, which keeps memory
+4-bit MLX conversions of the models hosted on Hugging Face, which keep memory
 use practical on a 16 GB Mac.
 
 The current command-line comparison loads the models sequentially, asks both
