@@ -1,3 +1,4 @@
-# Python 3.9-compatible versions selected for this Apple Silicon machine.
+# Versions validated together on this Apple Silicon project.
+mlx==0.29.3
 mlx-lm==0.29.1
 huggingface-hub==0.36.2

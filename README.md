@@ -94,6 +94,43 @@ Display all command-line options:
 python qa-code/ask_models.py --help
 ```
 
+## Ask one model with a prompt template
+
+Use `ask_slm.py` to select one model and apply the reusable confidence prompt.
+Pass the question first and either `phi` or `llama` second:
+
+```bash
+python qa-code/ask_slm.py "What is the capital of France?" phi
+python qa-code/ask_slm.py "What is the current weather in Fremont, CA?" llama
+```
+
+The optional third positional argument selects another template file. When it
+is omitted, the app uses `prompt-template/confidence-answer.txt`:
+
+```bash
+python qa-code/ask_slm.py "Your question" llama path/to/custom-template.txt
+```
+
+Templates must contain one `{question}` placeholder and one `{context}`
+placeholder. This command has no live-data source, so `{context}` is currently
+filled with `None`. The alias `llamda` is accepted for convenience, although
+the model's correct name is Llama.
+
+The app automatically starts with a 300-token output allowance. If the response
+reaches that limit, it retries from the original prompt with 450 and then 600
+tokens. This bounded retry prevents most cut-off poems and articles without
+allowing generation to grow indefinitely. Customize the retry sequence with:
+
+```bash
+python qa-code/ask_slm.py "Write me a love poem." phi --token-limits 400,600,800
+```
+
+To disable automatic retries and use one fixed allowance:
+
+```bash
+python qa-code/ask_slm.py "Explain photosynthesis." phi --max-tokens 256
+```
+
 ## Run the true-or-false QA test
 
 The repository includes `data/qa1-true-false.csv`, which contains ten factual

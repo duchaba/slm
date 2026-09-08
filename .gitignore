@@ -1,4 +1,5 @@
 .venv/
+.venv-python39-backup/
 models/
 __pycache__/
 *.py[cod]

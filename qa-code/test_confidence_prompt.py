@@ -26,32 +26,8 @@ from ask_models import MODELS
 
 
 DEFAULT_TEST_FILE = Path("data/qa106-prompt-template.json")
+DEFAULT_PROMPT_TEMPLATE_FILE = Path("prompt-template/confidence-answer.txt")
 VALID_CONFIDENCE = {"HIGH", "LOW", "UNKNOWN"}
-PROMPT_TEMPLATE = """You are a careful and honest assistant. Do not invent information.
-
-Classify your confidence before answering:
-
-- HIGH: The answer is well-established and you are confident.
-- LOW: The answer may be uncertain, ambiguous, incomplete, or outdated.
-- UNKNOWN: You do not know or the question requires unavailable current data.
-
-Return exactly this format:
-
-CONFIDENCE: HIGH | LOW | UNKNOWN
-ANSWER: <answer>
-
-Rules:
-- For UNKNOWN, write: ANSWER: I do not know.
-- For LOW, begin the answer with: Low confidence:
-- Never claim access to live information unless current source data is supplied.
-- Weather, news, prices, schedules, and other time-sensitive questions are
-  UNKNOWN unless the prompt includes current verified information.
-
-Question:
-{question}
-
-Reference information:
-{context}"""
 
 
 @dataclass(frozen=True)
@@ -117,6 +93,31 @@ class ModelRun:
     total_seconds: float
 
 
+def load_prompt_template(template_path: Path) -> str:
+    """Read and validate the external confidence prompt template.
+
+    Args:
+        template_path: UTF-8 text file containing the reusable prompt.
+
+    Returns:
+        Prompt text with surrounding whitespace removed.
+
+    Raises:
+        ValueError: If the template is empty or does not contain exactly one
+            ``{question}`` placeholder and one ``{context}`` placeholder.
+    """
+    template = template_path.read_text(encoding="utf-8").strip()
+    required_placeholders = ("{question}", "{context}")
+    if not template:
+        raise ValueError("Prompt template must not be empty")
+    for placeholder in required_placeholders:
+        if template.count(placeholder) != 1:
+            raise ValueError(
+                f"Prompt template must contain exactly one {placeholder} placeholder"
+            )
+    return template
+
+
 def load_cases(test_path: Path) -> List[ConfidenceCase]:
     """Load and validate confidence test cases.
 
@@ -178,6 +179,7 @@ def parse_response(response: str) -> tuple[Optional[str], bool]:
 def test_model(
     model_path: Path,
     cases: Sequence[ConfidenceCase],
+    prompt_template: str,
     max_tokens: int,
 ) -> ModelRun:
     """Run every confidence case against one local model.
@@ -185,6 +187,8 @@ def test_model(
     Args:
         model_path: Local MLX model directory.
         cases: Ordered cases to evaluate.
+        prompt_template: Validated template containing question and context
+            placeholders.
         max_tokens: Maximum new tokens allowed per response.
 
     Returns:
@@ -198,7 +202,7 @@ def test_model(
     results: List[ConfidenceResult] = []
     try:
         for case in cases:
-            instruction = PROMPT_TEMPLATE.format(
+            instruction = prompt_template.format(
                 question=case.question,
                 context=case.reference_information or "None",
             )
@@ -275,11 +279,12 @@ def print_run(model_name: str, run: ModelRun) -> None:
     print(f"End-to-end time: {run.total_seconds:.3f} s")
 
 
-def run_test(test_path: Path, max_tokens: int) -> None:
+def run_test(test_path: Path, template_path: Path, max_tokens: int) -> None:
     """Evaluate both configured SLMs.
 
     Args:
         test_path: Confidence-test JSON dataset.
+        template_path: Reusable prompt-template text file.
         max_tokens: Maximum generated tokens per answer.
 
     Returns:
@@ -289,11 +294,15 @@ def run_test(test_path: Path, max_tokens: int) -> None:
         FileNotFoundError: If a configured model directory is missing.
     """
     cases = load_cases(test_path)
+    prompt_template = load_prompt_template(template_path)
     missing = [str(path) for path in MODELS.values() if not path.is_dir()]
     if missing:
         raise FileNotFoundError("Missing model directories: " + ", ".join(missing))
     for model_name, model_path in MODELS.items():
-        print_run(model_name, test_model(model_path, cases, max_tokens))
+        print_run(
+            model_name,
+            test_model(model_path, cases, prompt_template, max_tokens),
+        )
 
 
 def main() -> None:
@@ -307,9 +316,18 @@ def main() -> None:
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("test_path", nargs="?", type=Path, default=DEFAULT_TEST_FILE)
+    parser.add_argument(
+        "--prompt-template",
+        type=Path,
+        default=DEFAULT_PROMPT_TEMPLATE_FILE,
+        help=(
+            "confidence prompt template "
+            f"(default: {DEFAULT_PROMPT_TEMPLATE_FILE})"
+        ),
+    )
     parser.add_argument("--max-tokens", type=int, default=128)
     args = parser.parse_args()
-    run_test(args.test_path, args.max_tokens)
+    run_test(args.test_path, args.prompt_template, args.max_tokens)
 
 
 if __name__ == "__main__":
